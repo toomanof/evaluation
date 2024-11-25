@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  backend:
+    container_name: ms-wb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      HOST_DB_DEF: db
+      URL_RABBIT_MQ: amqp://${USER_RABBIT_MQ}:${PASSWORD_RABBIT_MQ}@rabbit/${VHOST_RABBIT_MQ}
+      HOST_WEB_APP: 0.0.0.0
+    volumes:
+      - .:/home/ecom_ms_wb
+    ports:
+      - ${PORT_WEB_APP}:${PORT_WEB_APP}
+    extra_hosts:
+      - db:${HOST_DB_DEF}
+      - rabbit:${HOST_RABBIT_MQ}

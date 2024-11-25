@@ -1,0 +1,12 @@
+.cache
+logs/*
+
+.venv/
+.idea/
+
+.env
+.python-version
+*.sqlite3
+*.bak
+**/*.mo
+.coverage

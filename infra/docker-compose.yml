@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+
+  microservice_wb:
+    image: registry.ecompl.ru/microservice_wb:dev
+    restart: always
+    container_name: microservice_wb
+    hostname: microservice_wb
+    env_file:
+      - .env
+    ports:
+      - 0.0.0.0:${PORT_WEB_APP}:${PORT_WEB_APP}
+    networks:
+      - ecom_network
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
+    volumes:
+      - ./logs:/home/ecom_ms_wb/logs
+
+networks:
+ ecom_network:
+   external: true

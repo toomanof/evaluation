@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+
+  backend:
+    image: ${MS_WB_IMAGE_URL}
+    restart: "unless-stopped"
+    container_name: ms-wb
+    env_file:
+      - .env
+    environment:
+      HOST_DB_DEF: db
+      URL_RABBIT_MQ: amqp://${USER_RABBIT_MQ}:${PASSWORD_RABBIT_MQ}@rabbit/${VHOST_RABBIT_MQ}
+      HOST_WEB_APP: 0.0.0.0
+    volumes:
+      - ./wb_logs:/home/ecom_ms_wb/logs/
+    ports:
+      - ${PORT_WEB_APP}:${PORT_WEB_APP}
+    extra_hosts:
+      - db:${HOST_DB_DEF}
+      - rabbit:${HOST_RABBIT_MQ}
+
+volumes:
+ logs:
